@@ -27,22 +27,24 @@ class AudioSaveHelper {
   }
 
   public void createNewFile() {
-    Log.i("TEsting", "creating file");
-    String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
-    File folder = new File(storeLocation + "/SoundRecorder");
-    if (!folder.exists()) {
-      folder.mkdir();
-    }
-    int count = 0;
-    String fileName;
-    do {
-      count++;
-      fileName = "AudioRecord_"
-          + (recordItemDataSource.getRecordingsCount() + count)
-          + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-      String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
+    Log.i("Testing", "creating file");
+
+    if(mFile == null) {
+      String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
+      File folder = new File(storeLocation + "/SoundRecorder");
+      if (!folder.exists()) {
+        folder.mkdir();
+      }
+
+      String mFilePath = storeLocation + "/SoundRecorder/AudioRecord" + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
       mFile = new File(mFilePath);
-    } while (mFile.exists() && !mFile.isDirectory());
+      if (mFile.exists()) {
+        Log.i("Testing", "Deleting");
+        mFile.delete();
+        Log.i("Testing", "Deleted");
+      }
+      Log.i("Testing", mFilePath);
+    }
 
     try {
       os = new FileOutputStream(mFile);
