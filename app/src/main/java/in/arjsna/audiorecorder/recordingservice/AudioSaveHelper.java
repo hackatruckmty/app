@@ -33,16 +33,23 @@ class AudioSaveHelper {
     if (!folder.exists()) {
       folder.mkdir();
     }
-    int count = 0;
+//    int count = 0;
     String fileName;
-    do {
-      count++;
-      fileName = "AudioRecord_"
-          + (recordItemDataSource.getRecordingsCount() + count)
-          + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-      String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
-      mFile = new File(mFilePath);
-    } while (mFile.exists() && !mFile.isDirectory());
+//    do {
+//      count++;
+//      fileName = "AudioRecord_"
+//          + (recordItemDataSource.getRecordingsCount() + count)
+//          + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
+//      String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
+//      mFile = new File(mFilePath);
+//    } while (mFile.exists() && !mFile.isDirectory());
+    fileName = "AudioRecord_"
+        + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
+    String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
+    mFile = new File(mFilePath);
+    if(mFile.exists() && !mFile.isDirectory()){
+      mFile.delete();
+    }
 
     try {
       os = new FileOutputStream(mFile);

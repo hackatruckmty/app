@@ -48,5 +48,7 @@
   <string name="preference_layer_colors">layer_colors_key</string>
   <string name="rate_app_title">Rate Application</string>
   <string name="rate_app_desc">Rate the application in Google Play Store</string>
+  <string name="title_activity_maps">MapsActivity</string>
+  <string name="intro_text">Swipe edge to exit the map.</string>
 
 </resources>
