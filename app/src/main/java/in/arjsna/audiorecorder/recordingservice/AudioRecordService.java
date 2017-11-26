@@ -7,13 +7,9 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Binder;
-import android.os.Environment;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
-import android.widget.Toast;
-
 import com.orhanobut.hawk.Hawk;
 import in.arjsna.audiorecorder.AppConstants;
 import in.arjsna.audiorecorder.AudioRecorderApp;
@@ -100,8 +96,6 @@ public class AudioRecordService extends Service {
   private void stopRecodingAndRelease() {
     audioRecorder.finishRecord();
     handler.stop();
-    String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath() + "/SoundRecorder";
-    Log.i("testing","Done!!! - " + storeLocation);
   }
 
   private void startRecording() {

@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -23,43 +22,20 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 import com.jakewharton.rxbinding2.view.RxView;
-
-import java.io.BufferedInputStream;
-import java.io.File;
-
 import in.arjsna.audiorecorder.AppConstants;
 import in.arjsna.audiorecorder.R;
 import in.arjsna.audiorecorder.activities.PlayListActivity;
 import in.arjsna.audiorecorder.activities.SettingsActivity;
-import in.arjsna.audiorecorder.api.ApiClient;
-import in.arjsna.audiorecorder.api.ApiInterface;
 import in.arjsna.audiorecorder.audiovisualization.GLAudioVisualizationView;
 import in.arjsna.audiorecorder.di.components.ActivityComponent;
 import in.arjsna.audiorecorder.di.qualifiers.ActivityContext;
 import in.arjsna.audiorecorder.mvpbase.BaseFragment;
 import in.arjsna.audiorecorder.recordingservice.AudioRecordService;
 import in.arjsna.audiorecorder.recordingservice.AudioRecorder;
-import in.arjsna.audiorecorder.recordingservice.Constants;
 import in.arjsna.audiorecorder.theme.ThemeHelper;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-import retrofit2.Retrofit;
-
 import javax.inject.Inject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import android.util.Base64;
-
-import org.apache.commons.io.FileUtils;
 
 public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
   private static final String LOG_TAG = RecordFragment.class.getSimpleName();
@@ -264,45 +240,6 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
     Intent intent = new Intent(mContext, AudioRecordService.class);
     mContext.stopService(intent);
     unbindFromService();
-
-    String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
-    String mFilePath = storeLocation + "/SoundRecorder/AudioRecord" + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-    File mFile = new File(mFilePath);
-
-    Log.i("Testing", mFile.toString());
-
-    byte[] bytes = new byte [(int) mFile.length()];
-    try {
-      bytes = FileUtils.readFileToByteArray(mFile);
-    } catch (IOException e){
-
-    }
-
-    String encode = Base64.encodeToString(bytes, 0);
-    Log.i("Testing", encode);
-
-    //test();
-  }
-
-  private boolean test(){
-    Retrofit client = ApiClient.getClient();
-    ApiInterface service = client.create(ApiInterface.class);
-
-    Call<String> call = service.test();
-    call.enqueue(new Callback<String>() {
-      @Override
-      public void onResponse(Call<String> call, Response<String> response){
-        String strResponse = response.body();
-        Log.i("Testing", strResponse);
-      }
-
-      @Override
-      public void onFailure(Call<String> call, Throwable t){
-        call.cancel();
-      }
-    });
-
-    return false;
   }
 
   private final BroadcastReceiver serviceUpdateReceiver = new BroadcastReceiver() {

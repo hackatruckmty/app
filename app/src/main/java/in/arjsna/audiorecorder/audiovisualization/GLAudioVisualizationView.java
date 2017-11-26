@@ -179,7 +179,7 @@ public class GLAudioVisualizationView extends GLSurfaceView
         array.recycle();
       }
       colors = Hawk.get(context.getString(R.string.preference_layer_colors),
-          ColorPalette.getColors(context, ContextCompat.getColor(context, R.color.md_blue_grey_500)));
+          ColorPalette.getColors(context, ContextCompat.getColor(context, R.color.av_color5)));
       if (colors.length < layersCount) {
         throw new IllegalArgumentException("You specified more layers than colors.");
       }
