@@ -5,7 +5,7 @@
     <item name="android:layout_height">wrap_content</item>
     <item name="android:elevation" tools:ignore="NewApi">5dp</item>
     <item name="theme">@style/MyToolbarTheme</item>
-
+    <item name="android:background">@color/md_blue_grey_600</item>
   </style>
 
   <style name="MyToolbarTheme" parent="ThemeOverlay.AppCompat.ActionBar">
