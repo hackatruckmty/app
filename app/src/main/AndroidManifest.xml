@@ -71,6 +71,7 @@
           android:name="android.support.PARENT_ACTIVITY"
           android:value="in.arjsna.audiorecorder.activities.MainActivity" />
     </activity>
+
     <activity
         android:name=".activities.MapsActivity"
         android:label="@string/title_activity_maps">
@@ -78,7 +79,16 @@
           android:name="android.support.PARENT_ACTIVITY"
           android:value="in.arjsna.audiorecorder.activities.MainActivity" />
     </activity>
+
     <activity android:name="in.arjsna.audiorecorder.activities.TextInputActivity"
+        android:parentActivityName="in.arjsna.audiorecorder.activities.MainActivity"
+        android:screenOrientation="portrait">
+      <meta-data
+          android:name="android.support.PARENT_ACTIVITY"
+          android:value="in.arjsna.audiorecorder.activities.MainActivity"/>
+    </activity>
+
+    <activity android:name="in.arjsna.audiorecorder.activities.CostActivity"
         android:parentActivityName="in.arjsna.audiorecorder.activities.MainActivity"
         android:screenOrientation="portrait">
       <meta-data

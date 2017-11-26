@@ -43,6 +43,7 @@ import java.util.Map;
 
 import in.arjsna.audiorecorder.AppConstants;
 import in.arjsna.audiorecorder.R;
+import in.arjsna.audiorecorder.activities.CostActivity;
 import in.arjsna.audiorecorder.activities.PlayListActivity;
 import in.arjsna.audiorecorder.activities.SettingsActivity;
 import in.arjsna.audiorecorder.audiovisualization.GLAudioVisualizationView;
@@ -275,30 +276,41 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
       String url ="http://165.227.182.104:5000/interpret";
       // Request a string response from the provided URL.
       StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
-              new Response.Listener<String>() {
-                  @Override
-                  public void onResponse(String response) {
-                      // response
-                    JSONObject jsonResponse;
-                    try{
+          new Response.Listener<String>() {
+              @Override
+              public void onResponse(String response) {
+                  // response
+                  JSONObject jsonResponse;
+                  try{
                       jsonResponse = new JSONObject(response);
                       JSONObject res = jsonResponse.getJSONObject("response");
                       JSONArray path = res.getJSONArray("path");
                       JSONObject costs = res.getJSONObject("costs");
                       Double salary = costs.getDouble("salary");
+                      Double expenses = costs.getDouble("expenses");
+                      Double fuel = costs.getDouble("fuel");
+                      Double kms = costs.getDouble("km");
                       Log.i("response", path.toString());
-                    }catch(Exception e){
+
+                      Intent intent = new Intent(getContext(), CostActivity.class);
+                      intent.putExtra("expenses", expenses);
+                      intent.putExtra("fuel", fuel);
+                      intent.putExtra("kms", kms);
+                      intent.putExtra("salary", salary);
+                      startActivity(intent);
+
+                  }catch(Exception e){
                       Log.e("errorrrrrr", e.getMessage());
-                    }
-                  }
-              },
-              new Response.ErrorListener() {
-                  @Override
-                  public void onErrorResponse(VolleyError error) {
-                      // error
-                      Log.d("Error.Response", error.getMessage());
                   }
               }
+          },
+          new Response.ErrorListener() {
+              @Override
+              public void onErrorResponse(VolleyError error) {
+                  // error
+                  Log.d("Error.Response", error.getMessage());
+              }
+          }
       ) {
           @Override
           protected Map<String, String> getParams() {
