@@ -45,6 +45,7 @@ import java.util.Map;
 import in.arjsna.audiorecorder.AppConstants;
 import in.arjsna.audiorecorder.R;
 import in.arjsna.audiorecorder.activities.CostActivity;
+import in.arjsna.audiorecorder.activities.MainActivity;
 import in.arjsna.audiorecorder.activities.PlayListActivity;
 import in.arjsna.audiorecorder.activities.SettingsActivity;
 import in.arjsna.audiorecorder.audiovisualization.GLAudioVisualizationView;
@@ -293,24 +294,37 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
                       Double expenses = costs.getDouble("expenses");
                       Double fuel = costs.getDouble("fuel");
                       Double kms = costs.getDouble("km");
+                      JSONArray points = res.getJSONArray("path");
+                      JSONObject OrgDes = res.getJSONObject("points");
+
+                      String origin = OrgDes.getString("origin");
+                      String destination = OrgDes.getString("destination");
+
                       Log.i("response", path.toString());
                       mLoading.setVisibility(View.GONE);
+
                       Intent intent = new Intent(getContext(), CostActivity.class);
                       intent.putExtra("expenses", expenses);
                       intent.putExtra("fuel", fuel);
                       intent.putExtra("kms", kms);
                       intent.putExtra("salary", salary);
+                      intent.putExtra("points", points.toString());
+                      intent.putExtra("origin", origin);
+                      intent.putExtra("destination", destination);
                       startActivity(intent);
 
                   }catch(Exception e){
                       Log.e("errorrrrrr", e.getMessage());
+
+                      Intent intent = new Intent(getContext(), MainActivity.class);
+                      startActivity(intent);
                   }
               }
           },
           new Response.ErrorListener() {
               @Override
               public void onErrorResponse(VolleyError error) {
-                  // error
+                  // error: Do Something!!! D:
                   Log.d("Error.Response", error.getMessage());
               }
           }

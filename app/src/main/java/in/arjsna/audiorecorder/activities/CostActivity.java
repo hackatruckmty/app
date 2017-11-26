@@ -1,10 +1,12 @@
 package in.arjsna.audiorecorder.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -41,5 +43,18 @@ public class CostActivity extends AppCompatActivity {
         TextView expensesView = (TextView) findViewById(R.id.cost);
         expensesView.setText(expensesStr);
 
+
+        String title = "Costo del viaje: " + b.getString("origin") + ", " + b.getString("destination");
+        TextView titleView = (TextView) findViewById(R.id.title);
+        titleView.setText(title);
+
+    }
+
+    public void onClickLike(View view){
+        //Bundle b = getIntent().getExtras();
+
+        Intent intent = new Intent(this, MapsActivity.class);
+        //intent.putExtra("points", b.getString("points"));
+        startActivity(intent);
     }
 }

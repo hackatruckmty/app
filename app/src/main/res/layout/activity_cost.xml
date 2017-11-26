@@ -61,6 +61,7 @@
             android:layout_marginTop="20dp"/>
 
         <RelativeLayout
+            android:id="@+id/like_buttons"
             android:layout_below="@+id/question"
             android:layout_height="wrap_content"
             android:layout_width="match_parent"
@@ -71,7 +72,8 @@
                 android:id="@+id/like_button"
                 android:layout_height="@dimen/like_button_dimen"
                 android:layout_width="@dimen/like_button_dimen"
-                android:background="@drawable/ic_like"/>
+                android:background="@drawable/ic_like"
+                android:onClick="onClickLike"/>
 
             <Button
                 android:id="@+id/dislike_button"
@@ -80,8 +82,17 @@
                 android:background="@drawable/ic_like"
                 android:rotation="180"
                 android:layout_marginStart="150dp"
-                android:layout_marginLeft="150dp"/>
+                android:layout_marginLeft="150dp"
+                android:onClick="onClickLike"/>
         </RelativeLayout>
+
+        <TextView
+            android:layout_below="@+id/like_buttons"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:text="@string/like_buttons_info"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="20dp"/>
 
     </RelativeLayout>
 
