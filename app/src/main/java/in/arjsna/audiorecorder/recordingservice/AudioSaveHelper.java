@@ -14,12 +14,13 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import javax.inject.Inject;
 
-class AudioSaveHelper {
+public class AudioSaveHelper {
 
   private final RecordItemDataSource recordItemDataSource;
   private FileOutputStream os;
   private File mFile;
   private int mRecordSampleRate;
+  public static String mFilePath;
 
   @Inject
   public AudioSaveHelper(RecordItemDataSource recordItemDataSource) {
@@ -33,23 +34,16 @@ class AudioSaveHelper {
     if (!folder.exists()) {
       folder.mkdir();
     }
-//    int count = 0;
+    int count = 0;
     String fileName;
-//    do {
-//      count++;
-//      fileName = "AudioRecord_"
-//          + (recordItemDataSource.getRecordingsCount() + count)
-//          + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-//      String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
-//      mFile = new File(mFilePath);
-//    } while (mFile.exists() && !mFile.isDirectory());
-    fileName = "AudioRecord_"
-        + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-    String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
-    mFile = new File(mFilePath);
-    if(mFile.exists() && !mFile.isDirectory()){
-      mFile.delete();
-    }
+    do {
+      count++;
+      fileName = "AudioRecord_"
+          + (recordItemDataSource.getRecordingsCount() + count)
+          + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
+      mFilePath = storeLocation + "/SoundRecorder/" + fileName;
+      mFile = new File(mFilePath);
+    } while (mFile.exists() && !mFile.isDirectory());
 
     try {
       os = new FileOutputStream(mFile);

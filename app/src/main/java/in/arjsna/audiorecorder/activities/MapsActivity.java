@@ -1,24 +1,21 @@
 package in.arjsna.audiorecorder.activities;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.UiSettings;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.os.Bundle;
-import android.support.wear.widget.SwipeDismissFrameLayout;
-import android.support.wearable.activity.WearableActivity;
-import android.view.Gravity;
-import android.view.View;
-import android.view.WindowInsets;
-import android.widget.FrameLayout;
-import android.widget.Toast;
+import android.support.v4.app.FragmentActivity;
 
 import in.arjsna.audiorecorder.R;
 
-public class MapsActivity extends WearableActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
   /**
    * Map is initialized when it's fully loaded and ready to be used.
@@ -29,72 +26,26 @@ public class MapsActivity extends WearableActivity implements OnMapReadyCallback
 
   public void onCreate(Bundle savedState) {
     super.onCreate(savedState);
-
-    // Enables always on.
-    setAmbientEnabled();
-
     setContentView(R.layout.activity_maps);
-
-    final SwipeDismissFrameLayout swipeDismissRootFrameLayout =
-            (SwipeDismissFrameLayout) findViewById(R.id.swipe_dismiss_root_container);
-    final FrameLayout mapFrameLayout = (FrameLayout) findViewById(R.id.map_container);
-
-    // Enables the Swipe-To-Dismiss Gesture via the root layout (SwipeDismissFrameLayout).
-    // Swipe-To-Dismiss is a standard pattern in Wear for closing an app and needs to be
-    // manually enabled for any Google Maps Activity. For more information, review our docs:
-    // https://developer.android.com/training/wearables/ui/exit.html
-    swipeDismissRootFrameLayout.addCallback(new SwipeDismissFrameLayout.Callback() {
-      @Override
-      public void onDismissed(SwipeDismissFrameLayout layout) {
-        // Hides view before exit to avoid stutter.
-        layout.setVisibility(View.GONE);
-        finish();
-      }
-    });
-
-    // Adjusts margins to account for the system window insets when they become available.
-    swipeDismissRootFrameLayout.setOnApplyWindowInsetsListener(
-            new View.OnApplyWindowInsetsListener() {
-              @Override
-              public WindowInsets onApplyWindowInsets(View view, WindowInsets insets) {
-                insets = swipeDismissRootFrameLayout.onApplyWindowInsets(insets);
-
-                FrameLayout.LayoutParams params =
-                        (FrameLayout.LayoutParams) mapFrameLayout.getLayoutParams();
-
-                // Sets Wearable insets to FrameLayout container holding map as margins
-                params.setMargins(
-                        insets.getSystemWindowInsetLeft(),
-                        insets.getSystemWindowInsetTop(),
-                        insets.getSystemWindowInsetRight(),
-                        insets.getSystemWindowInsetBottom());
-                mapFrameLayout.setLayoutParams(params);
-
-                return insets;
-              }
-            });
-
     // Obtain the MapFragment and set the async listener to be notified when the map is ready.
     MapFragment mapFragment =
             (MapFragment) getFragmentManager().findFragmentById(R.id.map);
     mapFragment.getMapAsync(this);
-
   }
+
 
   @Override
   public void onMapReady(GoogleMap googleMap) {
     // Map is ready to be used.
-    mMap = googleMap;
+    CameraUpdate center=
+            CameraUpdateFactory.newLatLng(new LatLng(25.700712, -100.325079));
+    CameraUpdate zoom= CameraUpdateFactory.zoomTo(10);
 
-    // Inform user how to close app (Swipe-To-Close).
-    int duration = Toast.LENGTH_LONG;
-    Toast toast = Toast.makeText(getApplicationContext(), R.string.intro_text, duration);
-    toast.setGravity(Gravity.CENTER, 0, 0);
-    toast.show();
-
-    // Adds a marker in Sydney, Australia and moves the camera.
-    LatLng sydney = new LatLng(-34, 151);
-    mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-    mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    googleMap.getUiSettings().setZoomControlsEnabled(true);
+    googleMap.moveCamera(center);
+    googleMap.animateCamera(zoom);
+    googleMap.addMarker(new MarkerOptions()
+            .position(new LatLng(25.700712, -100.325079))
+            .title("Marker"));
   }
 }

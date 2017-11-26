@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
@@ -31,14 +30,10 @@ public class MainActivity extends BaseActivity {
           .commit();
     }
     getPermissions();
-    Handler handler = new Handler();
-    handler.postDelayed(new Runnable() {
-      @Override
-      public void run() {
-        Intent intent = new Intent(getApplication(), MapsActivity.class);
-        startActivity(intent);
-      }
-    }, 3000 );
+
+        // TODO remove
+//        Intent intent = new Intent(getApplication(), MapsActivity.class);
+//        startActivity(intent);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {

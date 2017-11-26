@@ -49,6 +49,7 @@ import in.arjsna.audiorecorder.di.qualifiers.ActivityContext;
 import in.arjsna.audiorecorder.mvpbase.BaseFragment;
 import in.arjsna.audiorecorder.recordingservice.AudioRecordService;
 import in.arjsna.audiorecorder.recordingservice.AudioRecorder;
+import in.arjsna.audiorecorder.recordingservice.AudioSaveHelper;
 import in.arjsna.audiorecorder.recordingservice.Constants;
 import in.arjsna.audiorecorder.theme.ThemeHelper;
 import io.reactivex.disposables.Disposable;
@@ -254,19 +255,20 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
         .registerReceiver(serviceUpdateReceiver, new IntentFilter(AppConstants.ACTION_IN_SERVICE));
   }
 
-  private void postInterpreter(){
-      String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
-      String mFilePath = storeLocation + "/SoundRecorder/AudioRecord" + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-      File mFile = new File(mFilePath);
-      byte[] bytes = new byte[0];
-      try {
-          bytes = FileUtils.readFileToByteArray(mFile);
-      } catch (IOException e) {
-          Log.e("Error encoded", e.getMessage());
-          e.printStackTrace();
-      }
+  private String getAudioEncoded(){
+    String mFilePath = AudioSaveHelper.mFilePath;
+    File mFile = new File(mFilePath);
+    byte[] bytes = new byte[0];
+    try {
+      bytes = FileUtils.readFileToByteArray(mFile);
+    } catch (IOException e) {
+      Log.e("Error encoded", e.getMessage());
+      e.printStackTrace();
+    }
+    return Base64.encodeToString(bytes, 0);
+  }
 
-      String encoded = Base64.encodeToString(bytes, 0);
+  private void postInterpreter(String encoded){
       RequestQueue queue = Volley.newRequestQueue(getContext());
       String url ="http://165.227.182.104:5000/interpret";
       // Request a string response from the provided URL.
@@ -301,6 +303,7 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
     Intent intent = new Intent(mContext, AudioRecordService.class);
     mContext.stopService(intent);
     unbindFromService();
+    postInterpreter(getAudioEncoded());
   }
 
   private final BroadcastReceiver serviceUpdateReceiver = new BroadcastReceiver() {
