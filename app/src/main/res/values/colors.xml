@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <color name="primary">#e36a97</color>
-  <color name="primary_light">#FFCDD2</color>
+  <color name="primary">#1D3557</color>
+  <color name="primary_light">#457B9D</color>
 
 
-  <color name="av_color_bg">#8f367c</color>
+  <color name="av_color_bg">#E63946</color>
 
   <!--Accent Color Collection-->
 
@@ -19,11 +19,11 @@
   <color name="md_dark_primary_text">#FFFFFFFF</color>
 
   <!--ALL COLOURS-->
-  <color name="av_color1">#f7b09e</color>
-  <color name="av_color2">#f0979b</color>
-  <color name="av_color3">#e36a97</color>
-  <color name="av_color4">#c35497</color>
-  <color name="av_color5">#bc428b</color>
+  <color name="av_color1">#C1C2C4</color>
+  <color name="av_color2">#A8DADC</color>
+  <color name="av_color3">#457B9D</color>
+  <color name="av_color4">#3A506B</color>
+  <color name="av_color5">#1D3557</color>
 
   <color name="md_amber_200">#FFE082</color>
   <color name="md_amber_300">#FFD54F</color>
