@@ -14,12 +14,13 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import javax.inject.Inject;
 
-class AudioSaveHelper {
+public class AudioSaveHelper {
 
   private final RecordItemDataSource recordItemDataSource;
   private FileOutputStream os;
   private File mFile;
   private int mRecordSampleRate;
+  public static String mFilePath;
 
   @Inject
   public AudioSaveHelper(RecordItemDataSource recordItemDataSource) {
@@ -40,7 +41,7 @@ class AudioSaveHelper {
       fileName = "AudioRecord_"
           + (recordItemDataSource.getRecordingsCount() + count)
           + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
-      String mFilePath = storeLocation + "/SoundRecorder/" + fileName;
+      mFilePath = storeLocation + "/SoundRecorder/" + fileName;
       mFile = new File(mFilePath);
     } while (mFile.exists() && !mFile.isDirectory());
 

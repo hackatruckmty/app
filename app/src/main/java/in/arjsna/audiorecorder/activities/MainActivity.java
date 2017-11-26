@@ -11,6 +11,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
+
 import in.arjsna.audiorecorder.R;
 import in.arjsna.audiorecorder.audiorecording.RecordFragment;
 import in.arjsna.audiorecorder.mvpbase.BaseActivity;
@@ -29,6 +30,10 @@ public class MainActivity extends BaseActivity {
           .commit();
     }
     getPermissions();
+
+        // TODO remove
+//        Intent intent = new Intent(getApplication(), MapsActivity.class);
+//        startActivity(intent);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
