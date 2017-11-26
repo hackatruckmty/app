@@ -54,5 +54,7 @@
   <string name="destination">Destination</string>
   <string name="axis">Axis:</string>
     <string name="cost_default">$4,238.00</string>
+    <string name="cost_message">Costo del viaje: Monterrey, Saltillo</string>
+    <string name="map_title">Mejor ruta:</string>
 
 </resources>
