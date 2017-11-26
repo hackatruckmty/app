@@ -48,5 +48,11 @@
   <string name="preference_layer_colors">layer_colors_key</string>
   <string name="rate_app_title">Rate Application</string>
   <string name="rate_app_desc">Rate the application in Google Play Store</string>
+    <string name="current_location">Current Location</string>
+  <string name="from">From:</string>
+    <string name="to">To:</string>
+  <string name="destination">Destination</string>
+  <string name="axis">Axis:</string>
+    <string name="cost_default">$4,238.00</string>
 
 </resources>
