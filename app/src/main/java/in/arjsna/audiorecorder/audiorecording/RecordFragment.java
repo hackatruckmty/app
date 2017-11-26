@@ -33,6 +33,8 @@ import com.android.volley.toolbox.Volley;
 import com.jakewharton.rxbinding2.view.RxView;
 
 import org.apache.commons.io.FileUtils;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -277,7 +279,15 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
                   @Override
                   public void onResponse(String response) {
                       // response
-                      Log.d("Response", response);
+                    JSONObject jsonResponse;
+                    try{
+                      jsonResponse = new JSONObject(response);
+                      JSONObject res = jsonResponse.getJSONObject("response");
+                      JSONArray path = res.getJSONArray("path");
+                      Log.i("response", path.toString());
+                    }catch(Exception e){
+                      Log.e("errorrrrrr", e.getMessage());
+                    }
                   }
               },
               new Response.ErrorListener() {
