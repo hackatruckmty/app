@@ -284,6 +284,8 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
                       jsonResponse = new JSONObject(response);
                       JSONObject res = jsonResponse.getJSONObject("response");
                       JSONArray path = res.getJSONArray("path");
+                      JSONObject costs = res.getJSONObject("costs");
+                      Double salary = costs.getDouble("salary");
                       Log.i("response", path.toString());
                     }catch(Exception e){
                       Log.e("errorrrrrr", e.getMessage());
