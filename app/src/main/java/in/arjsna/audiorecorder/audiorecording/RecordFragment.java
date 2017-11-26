@@ -22,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -71,6 +72,7 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
   private ObjectAnimator alphaAnimator;
   private FloatingActionButton mSettingsButton;
   private FloatingActionButton mPlayListBtn;
+  private LinearLayout mLoading;
 
   @Inject
   @ActivityContext
@@ -121,6 +123,7 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
     mRecordButton = recordView.findViewById(R.id.btnRecord);
     mPauseButton = recordView.findViewById(R.id.btnPause);
     mPauseButton.setVisibility(View.GONE); //hide pause button before recording starts
+    mLoading = recordView.findViewById(R.id.view_loading);
 
     alphaAnimator =
         ObjectAnimator.ofObject(chronometer, "alpha", new FloatEvaluator(), 0.2f);
@@ -291,7 +294,7 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
                       Double fuel = costs.getDouble("fuel");
                       Double kms = costs.getDouble("km");
                       Log.i("response", path.toString());
-
+                      mLoading.setVisibility(View.GONE);
                       Intent intent = new Intent(getContext(), CostActivity.class);
                       intent.putExtra("expenses", expenses);
                       intent.putExtra("fuel", fuel);
@@ -327,6 +330,7 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
     Intent intent = new Intent(mContext, AudioRecordService.class);
     mContext.stopService(intent);
     unbindFromService();
+    mLoading.setVisibility(View.VISIBLE);
     postInterpreter(getAudioEncoded());
   }
 

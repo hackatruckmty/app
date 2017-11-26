@@ -30,10 +30,6 @@ public class MainActivity extends BaseActivity {
           .commit();
     }
     getPermissions();
-
-        // TODO remove
-//        Intent intent = new Intent(getApplication(), MapsActivity.class);
-//        startActivity(intent);
   }
 
   @Override public boolean onCreateOptionsMenu(Menu menu) {
