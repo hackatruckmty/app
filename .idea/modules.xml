@@ -5,7 +5,6 @@
       <module fileurl="file://$PROJECT_DIR$/Android-AudioRecorder-App.iml" filepath="$PROJECT_DIR$/Android-AudioRecorder-App.iml" />
       <module fileurl="file://$PROJECT_DIR$/VoiceRecorder.iml" filepath="$PROJECT_DIR$/VoiceRecorder.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/eva.iml" filepath="$PROJECT_DIR$/eva.iml" />
     </modules>
   </component>

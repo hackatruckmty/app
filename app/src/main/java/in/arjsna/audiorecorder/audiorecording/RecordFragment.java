@@ -10,18 +10,35 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.jakewharton.rxbinding2.view.RxView;
+
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
 import in.arjsna.audiorecorder.AppConstants;
 import in.arjsna.audiorecorder.R;
 import in.arjsna.audiorecorder.activities.PlayListActivity;
@@ -32,6 +49,7 @@ import in.arjsna.audiorecorder.di.qualifiers.ActivityContext;
 import in.arjsna.audiorecorder.mvpbase.BaseFragment;
 import in.arjsna.audiorecorder.recordingservice.AudioRecordService;
 import in.arjsna.audiorecorder.recordingservice.AudioRecorder;
+import in.arjsna.audiorecorder.recordingservice.Constants;
 import in.arjsna.audiorecorder.theme.ThemeHelper;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -234,6 +252,49 @@ public class RecordFragment extends BaseFragment implements AudioRecordMVPView {
   private void registerLocalBroadCastReceiver() {
     LocalBroadcastManager.getInstance(mContext)
         .registerReceiver(serviceUpdateReceiver, new IntentFilter(AppConstants.ACTION_IN_SERVICE));
+  }
+
+  private void postInterpreter(){
+      String storeLocation = Environment.getExternalStorageDirectory().getAbsolutePath();
+      String mFilePath = storeLocation + "/SoundRecorder/AudioRecord" + Constants.AUDIO_RECORDER_FILE_EXT_WAV;
+      File mFile = new File(mFilePath);
+      byte[] bytes = new byte[0];
+      try {
+          bytes = FileUtils.readFileToByteArray(mFile);
+      } catch (IOException e) {
+          Log.e("Error encoded", e.getMessage());
+          e.printStackTrace();
+      }
+
+      String encoded = Base64.encodeToString(bytes, 0);
+      RequestQueue queue = Volley.newRequestQueue(getContext());
+      String url ="http://165.227.182.104:5000/interpret";
+      // Request a string response from the provided URL.
+      StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+              new Response.Listener<String>() {
+                  @Override
+                  public void onResponse(String response) {
+                      // response
+                      Log.d("Response", response);
+                  }
+              },
+              new Response.ErrorListener() {
+                  @Override
+                  public void onErrorResponse(VolleyError error) {
+                      // error
+                      Log.d("Error.Response", error.getMessage());
+                  }
+              }
+      ) {
+          @Override
+          protected Map<String, String> getParams() {
+              Map<String, String>  params = new HashMap<String, String>();
+              params.put("audio_data", encoded);
+              return params;
+          }
+      };
+      // Add the request to the RequestQueue.
+      queue.add(stringRequest);
   }
 
   @Override public void stopServiceAndUnBind() {
