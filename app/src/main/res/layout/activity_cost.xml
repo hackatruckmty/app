@@ -6,59 +6,66 @@
 
     <include android:id="@+id/toolbar" layout="@layout/toolbar" />
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_height="match_parent"
         android:layout_width="match_parent"
         android:layout_marginTop="55dp"
         android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
-        android:orientation="vertical"
-        android:weightSum="1">
+        android:layout_marginEnd="30dp">
 
         <TextView
-            android:layout_height="0dp"
+            android:id="@+id/title"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/cost_message"
             android:textSize="20sp"
             android:gravity="bottom|center_horizontal"
-            android:layout_weight=".1" />
+            android:layout_marginTop="20dp"/>
 
 
         <TextView
-            android:layout_height="0dp"
+            android:id="@+id/cost"
+            android:layout_below="@+id/title"
             android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
             android:text="@string/cost_default"
             android:textSize="38sp"
-            android:gravity="center_horizontal"
-            android:layout_weight=".14" />
+            android:layout_marginTop="10dp" />
 
         <TextView
-            android:layout_height="0dp"
+            android:id="@+id/map_title"
+            android:layout_below="@+id/cost"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
             android:text="@string/map_title"
             android:textSize="20sp"
-            android:layout_weight=".06" />
-
+            android:layout_marginTop="25dp"/>
 
         <ImageView
-            android:src="@drawable/ruta"
+            android:id="@+id/map_image"
+            android:layout_below="@+id/map_title"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight=".4"/>
+            android:layout_height="190dp"
+            android:src="@drawable/ruta"
+            android:layout_marginTop="5dp"/>
 
         <TextView
-            android:layout_height="0dp"
+            android:id="@+id/question"
+            android:layout_below="@+id/map_image"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:text="¿Le parece la ruta adecuada?"
+            android:text="@string/told_us"
             android:textSize="20sp"
             android:gravity="bottom|center_horizontal"
-            android:layout_weight=".1" />
+            android:layout_marginTop="20dp"/>
 
         <RelativeLayout
-            android:layout_height="0dp"
+            android:layout_below="@+id/question"
+            android:layout_height="wrap_content"
             android:layout_width="match_parent"
-            android:layout_weight=".2"
-            android:gravity="center">
+            android:gravity="center"
+            android:layout_marginTop="20dp">
 
             <Button
                 android:id="@+id/like_button"
@@ -76,6 +83,6 @@
                 android:layout_marginLeft="150dp"/>
         </RelativeLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </android.support.constraint.ConstraintLayout>

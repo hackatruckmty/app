@@ -4,6 +4,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.TextView;
+
+import java.text.DecimalFormat;
 
 import in.arjsna.audiorecorder.R;
 
@@ -21,9 +25,21 @@ public class CostActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(R.string.tab_title_saved_recordings);
+            actionBar.setTitle(R.string.cost_resume);
             actionBar.setDisplayHomeAsUpEnabled(true);
             actionBar.setDisplayShowHomeEnabled(true);
         }
+
+        //Log.i("Testing", savedInstanceStated.toString());
+        Bundle b = getIntent().getExtras();
+
+        Double expenses = b.getDouble("expenses");
+        expenses += b.getDouble("fuel");
+        expenses += b.getDouble("salary");
+        String expensesStr = "$" + new DecimalFormat("#.##").format(expenses);
+
+        TextView expensesView = (TextView) findViewById(R.id.cost);
+        expensesView.setText(expensesStr);
+
     }
 }

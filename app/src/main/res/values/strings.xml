@@ -58,5 +58,7 @@
   <string name="map_title">Mejor ruta:</string>
   <string name="title_activity_maps">MapsActivity</string>
   <string name="intro_text">Swipe edge to exit the map.</string>
+    <string name="cost_resume">Resumen</string>
+  <string name="told_us">¿Le parece la ruta adecuada?</string>
 
 </resources>
